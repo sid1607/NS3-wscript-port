@@ -1,0 +1,14 @@
+##Ignore Everything##
+bake/
+constants.pyc
+netanim-3.104/
+pybindgen-0.16.0.834/
+util.pyc
+ns-3.19/*
+##Except##
+!ns-3.19/wscript
+!ns-3.19/waf
+!ns-3.19/README
+!ns-3.19/LICENSE
+!ns-3.19/Makefile
+!ns-3.19/RELEASE_NOTES
