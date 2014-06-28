@@ -1,10 +1,27 @@
 ##Ignore Everything##
 bake/
+back/
 constants.pyc
 netanim-3.104/
 pybindgen-0.16.0.834/
 util.pyc
-ns-3.19/*
+*.c
+*.h
+*.o
+*.cpp
+*.pcap
+*.sh
+*.txt
+*.html
+*.cwnd
+*.cc
+*.pyc
+*.plt
+*.dat
+*.bat
+*.supp
+*.bak
+.*
 ##Except##
 !ns-3.19/wscript
 !ns-3.19/wutils.py
@@ -13,3 +30,4 @@ ns-3.19/*
 !ns-3.19/LICENSE
 !ns-3.19/Makefile
 !ns-3.19/RELEASE_NOTES
+!/.gitignore
