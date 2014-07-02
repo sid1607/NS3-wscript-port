@@ -650,7 +650,7 @@ def make_paths():
         if not have_LD_LIBRARY_PATH:
             os.environ["LD_LIBRARY_PATH"] = ""
         for path in NS3_MODULE_PATH:
-            os.environ["LD_LIBRARY_PATH"] += ":" + path
+            os.environ["LD_LIBRARY_PATH"] += ":" + str(path)
         if options.verbose:
             print("os.environ[\"LD_LIBRARY_PATH\"] == %s" % os.environ["LD_LIBRARY_PATH"])
 
@@ -1042,21 +1042,21 @@ def run_tests():
         # user wants to run everything.
         #
         if options.kinds or options.list or (len(options.constrain) and options.constrain in core_kinds):
-            if sys.platform == "win32":
+            if sys.platform == "win32": #Modify for windows
                 waf_cmd = "waf --target=test-runner"
             else:
-                waf_cmd = "./waf --target=test-runner"
+                waf_cmd = "python3 waf --target=test-runner"
         elif len(options.example):
-            if sys.platform == "win32":
+            if sys.platform == "win32": #Modify for windows
                 waf_cmd = "waf --target=%s" % os.path.basename(options.example)
             else:
-                waf_cmd = "./waf --target=%s" % os.path.basename(options.example)
+                waf_cmd = "python3 waf --target=%s" % os.path.basename(options.example)
 
         else:
-            if sys.platform == "win32":
+            if sys.platform == "win32": #Modify for windows
                 waf_cmd = "waf"
             else:
-                waf_cmd = "./waf"
+                waf_cmd = "python3 waf"
 
         if options.verbose:
             print("Building: %s" % waf_cmd)
@@ -1263,7 +1263,7 @@ def run_tests():
     # even in the case of a single suite to avoid having two process the
     # results in two different places.
     #
-    suite_list = suites.split('\n')
+    suite_list = suites.decode().split('\n')
 
     #
     # Performance tests should only be run when they are requested,
@@ -1274,7 +1274,7 @@ def run_tests():
         # Get a list of all of the performance tests.
         path_cmd = os.path.join("utils", test_runner_name + " --print-test-name-list --test-type=%s" % "performance")
         (rc, performance_tests, standard_err, et) = run_job_synchronously(path_cmd, os.getcwd(), False, False)
-        performance_test_list = performance_tests.split('\n')
+        performance_test_list = performance_tests.decode().split('\n')
 
         # Remove any performance tests from the suites list.
         for performance_test in performance_test_list:
