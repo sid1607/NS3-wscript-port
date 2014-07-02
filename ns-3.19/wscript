@@ -102,7 +102,7 @@ def print_module_names(names):
     # Print the list of module names in 3 columns.
     i = 1
     for name in names:
-        print(name.ljust(25), end=' ')
+        print(name.ljust(25), end=" ")
         if i == 3:
                 print()
                 i = 0

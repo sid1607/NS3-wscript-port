@@ -482,7 +482,7 @@ class ns3header_task(Task.Task):
             up(self.__class__.__name__.encode())
             for x in self.inputs + self.outputs:
                 up(x.abspath().encode())
-            up(self.mode)
+            up(self.mode.encode('utf-8'))
             if self.mode == 'remove':
                 up(self.header_to_remove.abspath().encode())
             self.uid_ = m.digest()
@@ -563,7 +563,7 @@ class gen_ns3_module_header_task(Task.Task):
         assert len(self.outputs) == 1
         out_file_name = self.outputs[0].get_bld().abspath()#self.env)
         header_files = [os.path.basename(node.abspath()) for node in self.inputs]
-        outfile = file(out_file_name, "w")
+        outfile = open(out_file_name, "w")
         header_files.sort()
 
         print("""
@@ -590,7 +590,7 @@ class gen_ns3_module_header_task(Task.Task):
         return 0
 
     def sig_explicit_deps(self):
-        self.m.update('\n'.join([node.abspath() for node in self.inputs]))
+        self.m.update(('\n'.join([node.abspath() for node in self.inputs])).encode('utf-8'))
         return self.m.digest()
 
     def unique_id(self):
