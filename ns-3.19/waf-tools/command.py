@@ -90,7 +90,7 @@ class command_task(Task.Task):
 					cmd.argv[argI] = self._subst_arg(cmd.argv[argI], None, namespace)
 				if cmd.env_vars is not None:
 					env_vars = dict()
-					for name, value in cmd.env_vars.items():
+					for name, value in list(cmd.env_vars.items()):
 						env_vars[name] = self._subst_arg(value, None, namespace)
 					cmd.env_vars = env_vars
 			elif isinstance(cmd, shellcmd.Chdir):
