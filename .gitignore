@@ -31,3 +31,4 @@ util.pyc
 !ns-3.19/Makefile
 !ns-3.19/RELEASE_NOTES
 !/.gitignore
+!*/wscript
