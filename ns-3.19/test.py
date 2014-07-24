@@ -17,19 +17,23 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
+from __future__ import print_function
 import os
 import sys
 import time
 import optparse
 import subprocess
 import threading
-import queue
 import signal
 import xml.dom.minidom
 import shutil
 import re
 
 from utils import get_list_from_file
+try:
+    import queue
+except ImportError:
+    import Queue as queue
 
 #
 # XXX This should really be part of a waf command to list the configuration
@@ -1042,21 +1046,21 @@ def run_tests():
         # user wants to run everything.
         #
         if options.kinds or options.list or (len(options.constrain) and options.constrain in core_kinds):
-            if sys.platform == "win32": #Modify for windows
-                waf_cmd = "waf --target=test-runner"
+            if sys.platform == "win32":
+                waf_cmd = sys.executable + " waf --target=test-runner"
             else:
-                waf_cmd = "python3 waf --target=test-runner"
+                waf_cmd = sys.executable + " waf --target=test-runner"
         elif len(options.example):
             if sys.platform == "win32": #Modify for windows
-                waf_cmd = "waf --target=%s" % os.path.basename(options.example)
+                waf_cmd = sys.executable + " waf --target=%s" % os.path.basename(options.example)
             else:
-                waf_cmd = "python3 waf --target=%s" % os.path.basename(options.example)
+                waf_cmd = sys.executable + " waf --target=%s" % os.path.basename(options.example)
 
         else:
             if sys.platform == "win32": #Modify for windows
-                waf_cmd = "waf"
+                waf_cmd = sys.executable + " waf"
             else:
-                waf_cmd = "python3 waf"
+                waf_cmd = sys.executable + " waf"
 
         if options.verbose:
             print("Building: %s" % waf_cmd)

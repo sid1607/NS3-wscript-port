@@ -90,7 +90,7 @@ def get_proc_env(os_env=None):
 
     if pathvar is not None:
         if pathvar in proc_env:
-            proc_env[pathvar] = os.pathsep.join(map(str,list(env['NS3_MODULE_PATH'])) + [proc_env[pathvar]])
+            proc_env[pathvar] = os.pathsep.join(list(map(str,list(env['NS3_MODULE_PATH']))) + [proc_env[pathvar]])
         else:
             proc_env[pathvar] = os.pathsep.join(map(str,list(env['NS3_MODULE_PATH'])))
 
@@ -139,7 +139,7 @@ def run_argv(argv, env, os_env=None, cwd=None, force_no_valgrind=False):
         signame = None
         if retval < 0: # signal?
             import signal
-            for name, val in vars(signal).items():
+            for name, val in list(vars(signal).items()):
                 if len(name) > 3 and name[:3] == 'SIG' and name[3] != '_':
                     if val == -retval:
                         signame = name
